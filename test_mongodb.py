@@ -1,21 +1,11 @@
-from pymongo import MongoClient
-import certifi
-from urllib.parse import quote_plus
+from pymongo.mongo_client import MongoClient
 
-username = "AshikHasanRedoy"
-password = "Ashik@12345"
-encoded_password = quote_plus(password)
+uri = "mongodb+srv://AshikHasanRedoy:Ashik12345@cluster0.ncgxgid.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 
-uri = f"mongodb+srv://{username}:{encoded_password}@cluster0.ncgxgid.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
-
-client = MongoClient(
-    uri,
-    tlsCAFile=certifi.where(),
-    serverSelectionTimeoutMS=10000
-)
+client = MongoClient(uri)
 
 try:
-    client.admin.command("ping")
-    print("✅ Successfully connected to MongoDB!")
+    client.admin.command('ping')
+    print("Pinged your deployment. You successfully connected to MongoDB!")
 except Exception as e:
-    print("❌ Connection error:", e)
+    print(e)
